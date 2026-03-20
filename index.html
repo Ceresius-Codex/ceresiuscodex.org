@@ -1,794 +1,427 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ceresius Codex - USI Informatics Student Association</title>
-  <meta name="description" content="Ceresius Codex is the first student association of the Faculty of Informatics at USI, Lugano. Hackathons, company visits, and more.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#000000",
+                        "surface": "#0a0a0a",
+                        "surface-hover": "#141414",
+                        "border": "#27272a",
+                        "primary": "#ffffff",
+                        "secondary": "#a1a1aa",
+                        "on-primary": "#000000",
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Manrope"]
+                    },
+                    letterSpacing: {
+                        "tighter": "-.04em",
+                        "tight": "-.02em",
+                        "widest": ".1em",
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
 
-    :root {
-      --blue:       #1565C0;
-      --blue-dark:  #0D47A1;
-      --blue-light: #1976D2;
-      --blue-pale:  #E3F0FF;
-      --white:      #FFFFFF;
-      --off-white:  #F7FAFF;
-      --text:       #0D1B2A;
-      --muted:      #5A6E85;
-      --border:     #D6E4F5;
-    }
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+        }
 
-    html { scroll-behavior: smooth; }
+        @media (max-width: 768px) {
+            .asymmetric-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--white);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-    }
+        /* Spotlight Background Grid */
+        body {
+            background-color: #000000;
+            color: #ededed;
+        }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.625rem;
-      text-decoration: none;
-    }
-    .nav-logo {
-      height: 36px;
-      width: 36px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    .nav-name {
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: -0.01em;
-      color: var(--blue);
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-    .nav-links a:hover { color: var(--blue); }
-    .btn-nav {
-      background: var(--blue);
-      color: var(--white) !important;
-      padding: 0.5rem 1.125rem;
-      border-radius: 8px;
-      font-weight: 600 !important;
-      transition: background 0.15s !important;
-    }
-    .btn-nav:hover { background: var(--blue-dark) !important; color: var(--white) !important; }
+        .bg-grid {
+            background-size: 24px 24px;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+            mask-image: radial-gradient(400px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), black 0%, rgba(0, 0, 0, 0.2) 100%);
+            -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), black 0%, rgba(0, 0, 0, 0.2) 100%);
+        }
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      background: var(--blue);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 7rem 2rem 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 110%, rgba(13,71,161,0.9) 0%, transparent 70%);
-    }
-    .hero-content { position: relative; z-index: 1; max-width: 780px; }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.92);
-      font-size: 0.8125rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.375rem 1rem;
-      border-radius: 100px;
-      margin-bottom: 2rem;
-    }
-    .hero-badge span { width: 6px; height: 6px; background: #7DD3FC; border-radius: 50%; display: inline-block; }
-    .hero-logo {
-      width: 140px;
-      height: 140px;
-      border-radius: 24px;
-      object-fit: cover;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
-    }
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      color: var(--white);
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: #93C5FD;
-    }
-    .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: rgba(255,255,255,0.75);
-      font-weight: 400;
-      line-height: 1.7;
-      max-width: 560px;
-      margin: 0 auto 2.5rem;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--white);
-      color: var(--blue);
-      font-weight: 700;
-      font-size: 0.9375rem;
-      padding: 0.875rem 2rem;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: var(--white);
-      font-weight: 600;
-      font-size: 0.9375rem;
-      padding: 0.875rem 2rem;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: background 0.15s;
-    }
-    .btn-secondary:hover { background: rgba(255,255,255,0.2); }
-    .hero-scroll {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: rgba(255,255,255,0.45);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .hero-scroll svg { animation: bounce 2s ease-in-out infinite; }
-    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-    /* ── EVENT ── */
-    .event-section {
-      background: var(--off-white);
-      padding: 6rem 2rem;
-    }
-    .section-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-    }
-    .section-label {
-      font-size: 0.8125rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 1rem;
-    }
-    .section-title {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      line-height: 1.15;
-      margin-bottom: 1.25rem;
-    }
-    .section-desc {
-      font-size: 1.0625rem;
-      color: var(--muted);
-      line-height: 1.75;
-      max-width: 580px;
-    }
-    .event-card {
-      margin-top: 3.5rem;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      box-shadow: 0 8px 40px rgba(21,101,192,0.08);
-    }
-    .event-card-body {
-      padding: 3rem;
-    }
-    .event-tag {
-      display: inline-block;
-      background: var(--blue-pale);
-      color: var(--blue);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.875rem;
-      border-radius: 100px;
-      margin-bottom: 1.5rem;
-    }
-    .event-card-body h3 {
-      font-size: 1.875rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-    .event-card-body p {
-      font-size: 1rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 2rem;
-    }
-    .event-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 2.5rem;
-    }
-    .event-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.9375rem;
-      color: var(--text);
-      font-weight: 500;
-    }
-    .event-meta-item svg { color: var(--blue); flex-shrink: 0; }
-    .btn-event {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--blue);
-      color: var(--white);
-      font-weight: 700;
-      font-size: 0.9375rem;
-      padding: 0.875rem 2rem;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: background 0.15s;
-    }
-    .btn-event:hover { background: var(--blue-dark); }
-    .event-card-visual {
-      background: var(--blue);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem;
-      gap: 1.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .event-card-visual::before {
-      content: '';
-      position: absolute;
-      bottom: -40px; right: -40px;
-      width: 240px; height: 240px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 50%;
-    }
-    .event-date-display {
-      text-align: center;
-      color: var(--white);
-    }
-    .event-date-display .month {
-      font-size: 0.875rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 0.25rem;
-    }
-    .event-date-display .day {
-      font-size: 5rem;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-    .event-date-display .year {
-      font-size: 1rem;
-      font-weight: 500;
-      opacity: 0.6;
-      margin-top: 0.25rem;
-    }
-    .event-divider {
-      width: 1px;
-      height: 40px;
-      background: rgba(255,255,255,0.2);
-    }
-    .event-location-display {
-      text-align: center;
-      color: var(--white);
-    }
-    .event-location-display .loc-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0.6;
-      margin-bottom: 0.375rem;
-    }
-    .event-location-display .loc-name {
-      font-size: 1.125rem;
-      font-weight: 700;
-    }
+        #spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(300px circle at 50% 50%, rgba(255, 255, 255, 0.02), transparent 100%);
+        }
 
-    /* ── ABOUT ── */
-    .about-section {
-      padding: 6rem 2rem;
-      background: var(--white);
-    }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      margin-top: 3.5rem;
-    }
-    .about-stat-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-    .stat-card {
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.75rem;
-    }
-    .stat-num {
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--blue);
-      line-height: 1;
-      margin-bottom: 0.375rem;
-    }
-    .stat-label {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-    .about-text h2 { margin-bottom: 1.25rem; }
-    .about-text p {
-      font-size: 1.0625rem;
-      color: var(--muted);
-      line-height: 1.75;
-    }
+        /* Minimal UI Components */
+        .minimal-card {
+            background-color: rgba(10, 10, 10, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
 
-    /* ── ACTIVITIES ── */
-    .activities-section {
-      padding: 6rem 2rem;
-      background: var(--blue);
-    }
-    .activities-section .section-label { color: rgba(255,255,255,0.6); }
-    .activities-section .section-title { color: var(--white); }
-    .activities-section .section-desc { color: rgba(255,255,255,0.65); }
-    .activities-grid {
-      margin-top: 3.5rem;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .activity-card {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 16px;
-      padding: 2rem;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .activity-card:hover { background: rgba(255,255,255,0.13); transform: translateY(-2px); }
-    .activity-icon {
-      width: 48px; height: 48px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.25rem;
-      color: white;
-    }
-    .activity-card h3 {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.625rem;
-      letter-spacing: -0.01em;
-    }
-    .activity-card p {
-      font-size: 0.9375rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.65;
-    }
+        .minimal-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(20, 20, 20, 0.5);
+        }
 
-    /* ── TEAM ── */
-    .team-section {
-      padding: 6rem 2rem;
-      background: var(--off-white);
-    }
-    .team-grid {
-      margin-top: 3.5rem;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .team-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2.25rem;
-      text-align: center;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .team-card:hover { box-shadow: 0 12px 40px rgba(21,101,192,0.1); transform: translateY(-2px); }
-    .team-avatar {
-      width: 72px; height: 72px;
-      background: var(--blue);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.25rem;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--white);
-      letter-spacing: -0.02em;
-    }
-    .team-card h3 {
-      font-size: 1.0625rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.01em;
-      margin-bottom: 0.25rem;
-    }
-    .team-role {
-      font-size: 0.8125rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 0.625rem;
-    }
-    .team-program {
-      font-size: 0.875rem;
-      color: var(--muted);
-      font-weight: 400;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--text);
-      padding: 3.5rem 2rem;
-      text-align: center;
-    }
-    .footer-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-    }
-    .footer-logo-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-    }
-    .footer-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    .footer-brand {
-      font-size: 1.0625rem;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: -0.01em;
-    }
-    footer p {
-      font-size: 0.875rem;
-      color: rgba(255,255,255,0.4);
-      line-height: 1.7;
-    }
-    footer a {
-      color: rgba(255,255,255,0.6);
-      text-decoration: none;
-    }
-    footer a:hover { color: var(--white); }
-    .footer-divider {
-      width: 1px;
-      height: 16px;
-      background: rgba(255,255,255,0.2);
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0 0.75rem;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .event-card { grid-template-columns: 1fr; }
-      .event-card-visual { padding: 2.5rem; order: -1; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .activities-grid { grid-template-columns: 1fr; }
-      .team-grid { grid-template-columns: 1fr; }
-      .about-stat-grid { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
+        /* Ensure content stays above the spotlight */
+        nav,
+        main,
+        footer {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
 </head>
-<body>
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-inner">
-      <a href="#" class="nav-brand">
-        <img src="logo.jpeg" alt="Ceresius Codex" class="nav-logo">
-        <span class="nav-name">Ceresius Codex</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#activities">Activities</a></li>
-        <li><a href="#team">Team</a></li>
-        <li><a href="#event" class="btn-nav">Our Aperitivo →</a></li>
-      </ul>
-    </div>
-  </nav>
+<body class="font-body selection:bg-primary selection:text-on-primary min-h-screen">
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Connecting the minds<br>of <em>USI Informatics</em></h1>
-      <p class="hero-sub">
-        Ceresius Codex is the first student association born from the Faculty of Informatics at the Università della Svizzera italiana, Lugano. Open to all students of informatics and all other faculties.
-      </p>
-      <div class="hero-actions">
-        <a href="#event" class="btn-primary">Inauguration Aperitivo →</a>
-        <a href="#about" class="btn-secondary">Learn more</a>
-      </div>
-    </div>
-    <div class="hero-scroll">
-      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-      </svg>
-    </div>
+    <!-- Spotlight Effect Container -->
+    <div id="spotlight"></div>
+    <div class="fixed inset-0 bg-grid z-0 pointer-events-none opacity-100"></div>
 
-  </section>
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-6 max-w-[1440px] left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-md border-b border-white/5">
+        <div class="text-xl font-medium tracking-tight text-primary">Ceresius Codex</div>
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-8 font-medium text-sm text-secondary">
+            <a class="hover:text-primary transition-colors duration-200" href="#">About</a>
+            <a class="hover:text-primary transition-colors duration-200" href="#">Events</a>
+            <a class="hover:text-primary transition-colors duration-200" href="#">Projects</a>
+            <a class="hover:text-primary transition-colors duration-200" href="#">Team</a>
+            <a class="hover:text-primary transition-colors duration-200" href="#">Contact</a>
+        </div>
+        <button
+            class="bg-primary text-on-primary px-5 py-2 rounded-md text-sm font-medium hover:bg-white/90 transition-all duration-200 active:scale-95">
+            Join Us
+        </button>
+    </nav>
 
-  <!-- EVENT -->
-  <section class="event-section" id="event">
-    <div class="section-inner">
-      <p class="section-label">Upcoming</p>
-      <h2 class="section-title">Our inauguration aperitivo</h2>
-      <p class="section-desc">Join us for the founding moment of Ceresius Codex. An evening to meet the team, share ideas, and celebrate a new chapter for USI's informatics community.</p>
-
-      <div class="event-card">
-        <div class="event-card-body">
-          <span class="event-tag">Save the date</span>
-          <h3>Inauguration Aperitivo</h3>
-          <p>
-            The first gathering of Ceresius Codex. All students, faculty members, and friends of the Faculty of Informatics are welcome. Come as you are - aperitivo is on us.
-          </p>
-          <div class="event-meta">
-            <div class="event-meta-item">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-              </svg>
-              Spring 2026 · Details coming soon
+    <main>
+        <!-- Hero Section -->
+        <section class="pt-32 md:pt-40 pb-16 md:pb-20 px-6 md:px-12 max-w-[1440px] mx-auto overflow-hidden relative">
+            <div class="asymmetric-grid gap-8 md:gap-12 items-start md:items-end">
+                <div class="max-w-3xl">
+                    <span
+                        class="font-label text-xs uppercase tracking-widest text-secondary mb-6 block font-medium">Student
+                        Association</span>
+                    <h1
+                        class="text-[3.5rem] md:text-[5rem] font-bold leading-[1.05] tracking-tighter text-primary mb-10">
+                        Elevating <br />
+                        <span class="text-secondary">Student Excellence</span>
+                    </h1>
+                </div>
+                <div class="pb-4 relative z-10 w-fit">
+                    <p
+                        class="text-lg text-secondary leading-relaxed mb-8 max-w-sm font-light relative before:absolute before:-inset-8 before:bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.8)_30%,transparent_100%)] before:-z-10 text-shadow-sm">
+                        A student organization dedicated to host hackathons, seminars, company visits, and networking
+                        events at USI Università della Svizzera italiana in Lugano.</p>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-secondary text-sm">arrow_downward</span>
+                        <span class="font-label text-xs uppercase tracking-widest text-secondary">Scroll to
+                            explore</span>
+                    </div>
+                </div>
             </div>
-            <div class="event-meta-item">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-              USI Campus, Lugano
+
+            <!-- Hero Visual -->
+            <div class="mt-20 w-full aspect-[21/9] minimal-card rounded-lg overflow-hidden relative group">
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20 z-10 pointer-events-none">
+                </div>
+                <div class="absolute inset-0 z-0 bg-black">
+                    <img alt="Our association image 1"
+                        class="hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-60"
+                        src="images/img1.webp" />
+                    <img alt="Our association image 2"
+                        class="hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                        src="images/img2.jpg" />
+                    <img alt="Our association image 3"
+                        class="hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                        src="images/img3.png" />
+                </div>
+                <div class="absolute bottom-8 right-8 z-20 text-right">
+                    <div class="minimal-card p-5 rounded-md max-w-xs bg-black/80 backdrop-blur-md">
+                        <p class="text-[0.65rem] font-medium font-label text-secondary mb-1 uppercase tracking-widest">
+                            Current Phase</p>
+                        <p class="text-sm font-medium text-primary">Hosting our kickoff event.</p>
+                    </div>
+                </div>
             </div>
-            <div class="event-meta-item">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-              Open to all USI students
+        </section>
+
+        <!-- Our Mission Section -->
+        <section class="py-24 md:py-32 px-6 md:px-12 relative border-t border-white/5">
+            <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+                <div>
+                    <h2 class="text-3xl font-medium text-primary mb-8 tracking-tight">Our Mission</h2>
+                    <p
+                        class="text-lg text-secondary leading-relaxed mb-12 font-light relative before:absolute before:-inset-16 before:bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.8)_30%,transparent_100%)] before:-z-10 z-10 text-shadow-sm">
+                        Ceresius Codex was founded to be a standpoint of the Faculty of Informatics, extending a bridge
+                        to students of all disciplines. Our mission is to fill a long-standing gap in our academic
+                        community by creating a structured, vibrant hub where innovation meets collaboration.</p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-5 minimal-card rounded-md">
+                            <span class="material-symbols-outlined text-secondary text-xl">hub</span>
+                            <div>
+                                <h4 class="font-medium text-primary text-base mb-1">Cross-Disciplinary Unity</h4>
+                                <p class="text-sm text-secondary font-light">Fostering collaboration between informatics
+                                    students and other faculties.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-5 minimal-card rounded-md">
+                            <span class="material-symbols-outlined text-secondary text-xl">event</span>
+                            <div>
+                                <h4 class="font-medium text-primary text-base mb-1">Curated Engagements</h4>
+                                <p class="text-sm text-secondary font-light">Hackathons, exclusive social gatherings,
+                                    and industry seminars.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center md:justify-end items-center">
+                    <div
+                        class="minimal-card p-10 rounded-xl w-full max-w-sm flex flex-col items-center justify-center text-center">
+                        <!-- USI Logo -->
+                        <div
+                            class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 overflow-hidden shadow-[0_0_20px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-shadow">
+                            <img src="images/USI_Logo.svg" alt="USI Logo" class="w-14 h-14 object-contain" />
+                        </div>
+
+                        <div class="flex items-center justify-center gap-2 mb-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-primary/70 animate-pulse"></div>
+                            <span class="font-label text-[0.65rem] uppercase tracking-widest text-secondary">Official
+                                Affiliation</span>
+                        </div>
+                        <span class="font-medium text-lg text-primary block mb-1">Faculty of Informatics</span>
+                        <span class="text-sm font-light text-secondary">Università della Svizzera italiana</span>
+                    </div>
+                </div>
             </div>
-          </div>
-          <a href="mailto:info@ceresiuscodex.org" class="btn-event">Stay informed →</a>
-        </div>
-        <div class="event-card-visual">
-          <div class="event-date-display">
-            <div class="month">Spring</div>
-            <div class="day">2026</div>
-            <div class="year">Lugano · USI</div>
-          </div>
-          <div class="event-divider"></div>
-          <div class="event-location-display">
-            <div class="loc-label">Hosted by</div>
-            <div class="loc-name">Ceresius Codex</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        </section>
 
-  <!-- ABOUT -->
-  <section class="about-section" id="about">
-    <div class="section-inner">
-      <div class="about-grid">
-        <div class="about-text">
-          <p class="section-label">Who we are</p>
-          <h2 class="section-title">The first informatics student association at USI</h2>
-          <p>
-            Ceresius Codex was founded to fill a real gap: a community space where students of artificial intelligence, fintech, quantitative finance, and all informatics disciplines can meet, collaborate, and grow together beyond the classroom.<br><br>
-            Named after Lugano's Latin roots, we are rooted in this city and its lake - and we look outward toward the ideas, companies, and technologies shaping tomorrow.
-          </p>
-        </div>
-        <div class="about-stat-grid">
-          <div class="stat-card">
-            <div class="stat-num">#1</div>
-            <div class="stat-label">First student association in the Faculty of Informatics</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">USI</div>
-            <div class="stat-label">Università della Svizzera italiana, Lugano</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">3</div>
-            <div class="stat-label">MSc programs represented in our founding board</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">∞</div>
-            <div class="stat-label">Open to every student at USI Informatics</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        <!-- Upcoming Events Section -->
+        <section class="py-24 md:py-32 px-6 md:px-12 max-w-[1440px] mx-auto border-t border-white/5">
+            <div
+                class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-16 gap-6 md:gap-0">
+                <div class="max-w-xl">
+                    <h2 class="text-3xl font-medium text-primary mb-4 tracking-tight">Upcoming Events</h2>
+                    <p class="text-secondary text-lg font-light">Secure your spot at our next gatherings.</p>
+                </div>
+                <button
+                    class="font-label text-xs uppercase tracking-widest text-secondary border-b border-white/20 hover:text-primary hover:border-primary pb-1 transition-all mt-6 md:mt-0 flex items-center gap-2">
+                    View Schedule
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+            </div>
 
-  <!-- ACTIVITIES -->
-  <section class="activities-section" id="activities">
-    <div class="section-inner">
-      <p class="section-label">What we do</p>
-      <h2 class="section-title">Build. Explore. Connect.</h2>
-      <p class="section-desc">From late-night hackathons to company tours and campus events - Ceresius Codex is where ambition meets community.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Event 1 -->
+                <div
+                    class="minimal-card p-6 md:p-8 rounded-lg flex flex-col justify-between group cursor-pointer h-full min-h-[400px]">
+                    <div>
+                        <div
+                            class="w-full aspect-[2/1] bg-surface-hover/50 rounded-md mb-8 flex items-center justify-center border border-white/5">
+                            <span class="material-symbols-outlined text-border text-3xl">api</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="text-xs text-secondary font-medium tracking-wide border border-white/10 bg-white/5 px-2 py-1 rounded">01.04.2026
+                                // LUGANO</span>
+                        </div>
+                        <h3 class="text-2xl font-medium text-primary mb-3">Kickoff Event @ Tuttoniente</h3>
+                        <p class="text-secondary font-light mb-8 line-clamp-2">Join us at our inauguration party at the
+                            biggest audio bar in Europe.</p>
+                    </div>
+                    <div class="flex items-center mt-6 md:mt-auto">
+                        <button
+                            class="w-full md:w-auto bg-primary text-on-primary px-6 py-3 rounded-md text-sm font-medium justify-center hover:bg-white/90 transition-all flex items-center gap-2">
+                            Register Now
+                        </button>
+                    </div>
+                </div>
 
-      <div class="activities-grid">
-        <div class="activity-card">
-          <div class="activity-icon">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-            </svg>
-          </div>
-          <h3>Hackathons</h3>
-          <p>Hands-on coding challenges where you build fast, learn faster, and meet people who love the same problems you do.</p>
-        </div>
-        <div class="activity-card">
-          <div class="activity-icon">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-            </svg>
-          </div>
-          <h3>Company Visits</h3>
-          <p>Step inside the companies shaping tech and finance across Switzerland and beyond - from startups to multinationals.</p>
-        </div>
-        <div class="activity-card">
-          <div class="activity-icon">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-            </svg>
-          </div>
-          <h3>USI Spaces</h3>
-          <p>We leverage USI's campus facilities for study groups, workshops, talks, and social events that bring our community together.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+                <!-- Event 2 -->
+                <div
+                    class="minimal-card p-6 md:p-8 rounded-lg flex flex-col justify-between group cursor-pointer h-full min-h-[400px]">
+                    <div>
+                        <div
+                            class="w-full aspect-[2/1] bg-surface-hover/50 rounded-md mb-8 flex items-center justify-center border border-white/5">
+                            <span class="material-symbols-outlined text-border text-3xl">memory</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="text-xs text-secondary font-medium tracking-wide border border-white/10 bg-white/5 px-2 py-1 rounded">TBA
+                                // SWITZERLAND</span>
+                        </div>
+                        <h3 class="text-2xl font-medium text-primary mb-3">Startup Hackathon</h3>
+                        <p class="text-secondary font-light mb-8 line-clamp-2">Our first main event will be a hackathon
+                            in which startups from Switzerland, US, and Italy will propose challenges.</p>
+                    </div>
+                    <div class="flex items-center gap-2 group-hover:translate-x-1.5 transition-transform">
+                        <span
+                            class="font-medium text-sm text-secondary group-hover:text-primary transition-colors">Event
+                            Details</span>
+                        <span
+                            class="material-symbols-outlined text-sm text-secondary group-hover:text-primary transition-colors">arrow_forward</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- TEAM -->
-  <section class="team-section" id="team">
-    <div class="section-inner">
-      <p class="section-label">Founding Board</p>
-      <h2 class="section-title">The people behind Ceresius Codex</h2>
-      <p class="section-desc">Three master's students across AI, fintech, and quantitative finance - united by a belief that the informatics community at USI deserves a home.</p>
+        <!-- Ready to Lead Section -->
+        <section class="py-28 md:py-40 px-6 text-center border-t border-white/5">
+            <div class="max-w-2xl mx-auto relative z-10 px-4 md:px-0">
+                <h2 class="text-4xl md:text-5xl font-medium text-primary mb-6 tracking-tight">Ready to lead?</h2>
+                <p
+                    class="text-lg text-secondary mb-10 font-light relative before:absolute before:-inset-16 before:bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.8)_30%,transparent_100%)] before:-z-10 text-shadow-sm">
+                    Join a collective of students who aren't just attending university, but actively shaping its
+                    academic legacy through Ceresius Codex.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button
+                        class="bg-primary text-on-primary px-8 py-3 rounded-md font-medium hover:bg-white/90 transition-all text-sm">Submit
+                        Application</button>
+                    <button
+                        class="bg-transparent border border-border text-primary px-8 py-3 rounded-md font-medium hover:bg-surface transition-all text-sm">Learn
+                        More</button>
+                </div>
+            </div>
+        </section>
+    </main>
 
-      <div class="team-grid">
-        <div class="team-card">
-          <div class="team-avatar">FG</div>
-          <h3>Ferdinando Giordano</h3>
-          <div class="team-role">President</div>
-          <div class="team-program">MSc Artificial Intelligence</div>
-        </div>
-        <div class="team-card">
-          <div class="team-avatar">AC</div>
-          <h3>Alan Copa</h3>
-          <div class="team-role">Vice President</div>
-          <div class="team-program">MSc Financial Technology &amp; Computing</div>
-        </div>
-        <div class="team-card">
-          <div class="team-avatar">FP</div>
-          <h3>Francesca Pjetri</h3>
-          <div class="team-role">Treasurer</div>
-          <div class="team-program">MSc Quantitative Finance</div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Simplified Footer -->
+    <footer class="w-full border-t border-white/5 py-16 px-6 md:px-12 bg-[#000000]">
+        <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+            <div class="max-w-sm">
+                <div class="font-medium text-primary mb-4 text-xl tracking-tight">Ceresius Codex</div>
+                <p class="text-sm text-secondary font-light mb-8 leading-relaxed">
+                    An Academic Institution dedicated to the cultivation of excellence within the student body.
+                </p>
+                <div class="text-xs text-border tracking-wider">
+                    © 2026 Ceresius Codex.
+                </div>
+            </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-logo-row">
-        <img src="logo.jpeg" alt="Ceresius Codex" class="footer-logo">
-        <span class="footer-brand">Ceresius Codex</span>
-      </div>
-      <p>
-        The first student association of the Faculty of Informatics · Università della Svizzera italiana
-        <span class="footer-divider"></span>
-        Lugano, Switzerland
-      </p>
-      <p style="margin-top: 1.25rem;">
-        <a href="mailto:ceresius.codex@usi.ch">ceresius.codex@usi.ch</a>
-      </p>
-      <p style="margin-top: 2rem; font-size: 0.8125rem;">© 2026 Ceresius Codex. All rights reserved.</p>
-    </div>
-  </footer>
+            <div class="flex gap-16 md:gap-24">
+                <div>
+                    <span class="text-xs text-primary font-medium mb-4 block tracking-wide">Socials</span>
+                    <ul class="space-y-3 text-sm">
+                        <li><a class="text-secondary hover:text-primary transition-colors font-light"
+                                href="#">Instagram</a></li>
+                        <li><a class="text-secondary hover:text-primary transition-colors font-light"
+                                href="#">LinkedIn</a></li>
+                        <li><a class="text-secondary hover:text-primary transition-colors font-light" href="#">X
+                                (Twitter)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="text-xs text-primary font-medium mb-4 block tracking-wide">Contact</span>
+                    <ul class="space-y-3 text-sm">
+                        <li><a class="text-secondary hover:text-primary transition-colors font-light"
+                                href="mailto:info@ceresiuscodex.com">Email Us</a></li>
+                        <li><a class="text-secondary hover:text-primary transition-colors font-light" href="#">Privacy
+                                Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Spotlight Effect Logic
+        const spotlight = document.getElementById('spotlight');
+        const bgGrid = document.querySelector('.bg-grid');
+        let rafId = null;
+        let targetX = window.innerWidth / 2;
+        let targetY = window.innerHeight / 2;
+        let currentX = targetX;
+        let currentY = targetY;
+
+        // Easing factor for smooth movement (0.1 = slow, 0.5 = fast)
+        const easing = 0.15;
+
+        document.addEventListener('mousemove', (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
+        });
+
+        function updateSpotlight() {
+            // Smoothly interpolate current position towards target
+            const dx = targetX - currentX;
+            const dy = targetY - currentY;
+
+            currentX += dx * easing;
+            currentY += dy * easing;
+
+            // Apply updated radial gradient position
+            spotlight.style.background = `radial-gradient(300px circle at ${currentX}px ${currentY}px, rgba(255, 255, 255, 0.02), transparent 100%)`;
+
+            // Apply mask position for dynamic cursor dot grid
+            bgGrid.style.setProperty('--mouse-x', `${currentX}px`);
+            bgGrid.style.setProperty('--mouse-y', `${currentY}px`);
+
+            rafId = requestAnimationFrame(updateSpotlight);
+        }
+
+        // Start animation loop
+        updateSpotlight();
+
+        // Update target immediately on resize so it doesn't stay off-screen
+        window.addEventListener('resize', () => {
+            targetX = window.innerWidth / 2;
+            targetY = window.innerHeight / 2;
+        });
+
+        // Hero Slideshow Logic
+        const slides = document.querySelectorAll('.hero-slide');
+        if (slides.length > 0) {
+            let currentSlide = 0;
+            setInterval(() => {
+                // Fade out current slide
+                slides[currentSlide].classList.remove('opacity-60');
+                slides[currentSlide].classList.add('opacity-0');
+
+                // Move to next slide
+                currentSlide = (currentSlide + 1) % slides.length;
+
+                // Fade in next slide
+                slides[currentSlide].classList.remove('opacity-0');
+                slides[currentSlide].classList.add('opacity-60');
+            }, 6000); // 6 seconds
+        }
+    </script>
 
 </body>
+
 </html>
