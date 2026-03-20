@@ -77,6 +77,11 @@
             pointer-events: none;
             z-index: 0;
             background: radial-gradient(300px circle at 50% 50%, rgba(255, 255, 255, 0.02), transparent 100%);
+            will-change: background;
+        }
+
+        .bg-grid {
+            will-change: mask-position, -webkit-mask-position;
         }
 
         /* Minimal UI Components */
@@ -163,10 +168,10 @@
                     <img alt="Our association image 1"
                         class="hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-60"
                         src="images/img1.webp" />
-                    <img alt="Our association image 2"
+                    <img alt="Our association image 2" loading="lazy"
                         class="hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
                         src="images/img2.jpg" />
-                    <img alt="Our association image 3"
+                    <img alt="Our association image 3" loading="lazy"
                         class="hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
                         src="images/img3.png" />
                 </div>
@@ -371,31 +376,38 @@
         // Easing factor for smooth movement (0.1 = slow, 0.5 = fast)
         const easing = 0.15;
 
-        document.addEventListener('mousemove', (e) => {
-            targetX = e.clientX;
-            targetY = e.clientY;
-        });
-
         function updateSpotlight() {
-            // Smoothly interpolate current position towards target
+            rafId = null;
             const dx = targetX - currentX;
             const dy = targetY - currentY;
+
+            // Stop looping when movement is negligible
+            if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+                currentX = targetX;
+                currentY = targetY;
+                return;
+            }
 
             currentX += dx * easing;
             currentY += dy * easing;
 
-            // Apply updated radial gradient position
             spotlight.style.background = `radial-gradient(300px circle at ${currentX}px ${currentY}px, rgba(255, 255, 255, 0.02), transparent 100%)`;
-
-            // Apply mask position for dynamic cursor dot grid
             bgGrid.style.setProperty('--mouse-x', `${currentX}px`);
             bgGrid.style.setProperty('--mouse-y', `${currentY}px`);
 
             rafId = requestAnimationFrame(updateSpotlight);
         }
 
-        // Start animation loop
-        updateSpotlight();
+        document.addEventListener('mousemove', (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
+            if (!rafId) rafId = requestAnimationFrame(updateSpotlight);
+        });
+
+        // Initial render
+        spotlight.style.background = `radial-gradient(300px circle at ${currentX}px ${currentY}px, rgba(255, 255, 255, 0.02), transparent 100%)`;
+        bgGrid.style.setProperty('--mouse-x', `${currentX}px`);
+        bgGrid.style.setProperty('--mouse-y', `${currentY}px`);
 
         // Update target immediately on resize so it doesn't stay off-screen
         window.addEventListener('resize', () => {
