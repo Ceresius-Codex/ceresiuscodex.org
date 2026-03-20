@@ -4,108 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="output.css" />
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "background": "#000000",
-                        "surface": "#0a0a0a",
-                        "surface-hover": "#141414",
-                        "border": "#27272a",
-                        "primary": "#ffffff",
-                        "secondary": "#a1a1aa",
-                        "on-primary": "#000000",
-                    },
-                    fontFamily: {
-                        "headline": ["Inter"],
-                        "body": ["Inter"],
-                        "label": ["Manrope"]
-                    },
-                    letterSpacing: {
-                        "tighter": "-.04em",
-                        "tight": "-.02em",
-                        "widest": ".1em",
-                    }
-                },
-            },
-        }
-    </script>
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-
-        .asymmetric-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-        }
-
-        @media (max-width: 768px) {
-            .asymmetric-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Spotlight Background Grid */
-        body {
-            background-color: #000000;
-            color: #ededed;
-        }
-
-        .bg-grid {
-            background-size: 24px 24px;
-            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
-            mask-image: radial-gradient(400px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), black 0%, rgba(0, 0, 0, 0.2) 100%);
-            -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), black 0%, rgba(0, 0, 0, 0.2) 100%);
-        }
-
-        #spotlight {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-            background: radial-gradient(300px circle at 50% 50%, rgba(255, 255, 255, 0.02), transparent 100%);
-            will-change: background;
-        }
-
-        .bg-grid {
-            will-change: mask-position, -webkit-mask-position;
-        }
-
-        /* Minimal UI Components */
-        .minimal-card {
-            background-color: rgba(10, 10, 10, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .minimal-card:hover {
-            border-color: rgba(255, 255, 255, 0.1);
-            background-color: rgba(20, 20, 20, 0.5);
-        }
-
-        /* Ensure content stays above the spotlight */
-        nav,
-        main,
-        footer {
-            position: relative;
-            z-index: 10;
-        }
-    </style>
 </head>
 
 <body class="font-body selection:bg-primary selection:text-on-primary min-h-screen">
